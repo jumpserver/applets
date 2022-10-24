@@ -1,0 +1,10 @@
+- name: MySQL Workbench
+  display_name: MySQL Workbench
+  comment: 连接 MySQL 的工具，可以用来执行 SQL 和设计表结构
+  version: 0.1
+  category: database
+  type: app
+  protocols:
+    - mysql
+  
+
