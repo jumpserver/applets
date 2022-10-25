@@ -1,9 +1,10 @@
-- name: mysql_workbench
-  display_name: MySQL Workbench
-  comment: 连接 MySQL 的工具，可以用来执行 SQL 和设计表结构
-  version: 0.1
-  type: general
-  tags:
-    - database
-  protocols:
-    - mysql
+name: mysql_workbench
+display_name: MySQL Workbench
+comment: A tool for working with MySQL, to execute SQL and design tables
+version: 0.1
+author: Eric
+type: general
+tags:
+  - database
+protocols:
+  - mysql
