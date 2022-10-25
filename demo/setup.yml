@@ -1,0 +1,5 @@
+type: exe  # manual, zip
+source: mysql-workbench-community-6.3.9-winx64.msi
+arguments: /qn
+destination: C:\Program Files\MySQL\MySQL Workbench 6.3 CE
+program: C:\Program Files\MySQL\MySQL Workbench 6.3 CE\MySQLWorkbench.exe
