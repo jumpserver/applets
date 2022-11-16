@@ -52,12 +52,12 @@ def zip_all_applets(applets_path):
         zip_applet(applet, dist_dir)
 
 
-def zip_pip_packages(root_path):
-    pip_packages_path = os.path.join(root_path, 'pip_packages')
+def zip_pip_packages(project_path):
+    pip_packages_path = os.path.join(project_path, 'pip_packages')
     if not os.path.exists(pip_packages_path):
         raise Exception('pip_packages not exist')
-    dst_dir = os.path.join(root_path, 'build')
-    with change_dir(root_path):
+    dst_dir = os.path.join(project_path, 'build')
+    with change_dir(project_path):
         applet_name = "pip_packages"
         zip_name = os.path.join(dst_dir, applet_name + '.zip')
         filelist = []
