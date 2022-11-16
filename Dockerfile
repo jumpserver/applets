@@ -1,25 +1,34 @@
-FROM python:3.10.8-alpine as builder
-
-ARG PIP_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
-ARG DOWNLOAD_URL=https://download.jumpserver.org
+FROM python:3.8-slim as stage-build
+ARG TARGETARCH
+ARG PIP_MIRROR=https://pypi.douban.com/simple
 ENV PIP_MIRROR=$PIP_MIRROR
 
-ENV TINKER_INSTALLER=Tinker_Installer_v0.0.1.exe
-ENV PYTHON_INSTALLER=python-3.10.8-amd64.exe
-ENV CHROMEDRIVER=chromedriver_win32.107.zip
-ENV CHROME_INSTALLER=googlechromestandaloneenterprise64.msi
+ARG APT_MIRROR=http://mirrors.ustc.edu.cn
 
-WORKDIR /opt/applets
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
+    sed -i "s@http://.*.debian.org@${APT_MIRROR}@g" /etc/apt/sources.list \
+    && rm -f /etc/cron.daily/apt-compat \
+    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends wget \
+    && echo "no" | dpkg-reconfigure dash \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/download
+
+ARG TINKER_VERSION=v0.0.1
+ARG PYTHON_VERSION=3.10.8
+ARG CHROME_VERSION=107.0.5304.63
+ARG CHROMEDRIVER_VERSION=107.0.5304.62
+ARG DOWNLOAD_URL=https://download.jumpserver.org
 
 RUN set -ex \
-    && mkdir -p /opt/download \
-    && cd /opt/download \
-    && wget -qO /opt/download/${TINKER_INSTALLER} ${DOWNLOAD_URL}/public/${Tinker_Installer} \
-    && wget -qO /opt/download/${PYTHON_INSTALLER} ${DOWNLOAD_URL}/public/${PYTHON_INSTALLER} \
-    && wget -qO /opt/download/${CHROMEDRIVER} ${DOWNLOAD_URL}/public/${CHROMEDRIVER} \
-    && wget -qO /opt/download/${CHROME_INSTALLER} ${DOWNLOAD_URL}/public/${CHROME_INSTALLER}
+    && wget -q ${DOWNLOAD_URL}/public/Tinker_Installer_${TINKER_VERSION}.exe \
+    && wget -q ${DOWNLOAD_URL}/public/python-${PYTHON_VERSION}-amd64.exe \
+    && wget -q ${DOWNLOAD_URL}/files/chromedriver/${CHROMEDRIVER_VERSION}/chromedriver_win32.zip \
+    && wget -q ${DOWNLOAD_URL}/files/chrome/${CHROME_VERSION}/googlechromestandaloneenterprise64.msi
 
-
+WORKDIR /opt/applets
 COPY requirements.txt requirements.txt
 
 RUN mkdir pip_packages
@@ -33,8 +42,21 @@ COPY . .
 
 RUN python build.py && ls -al build
 
-FROM nginx:1.23-alpine
+FROM nginx:1.22
+ARG TARGETARCH
+ARG APT_MIRROR=http://mirrors.ustc.edu.cn
 
-COPY --from=builder /opt/applets/build /opt/download/
-COPY --from=builder /opt/download/ /opt/download/
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
+    sed -i "s@http://.*.debian.org@${APT_MIRROR}@g" /etc/apt/sources.list \
+    && rm -f /etc/cron.daily/apt-compat \
+    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends wget vim logrotate locales \
+    && echo "no" | dpkg-reconfigure dash \
+    && echo "zh_CN.UTF-8" | dpkg-reconfigure locales \
+    && rm -f /var/log/nginx/*.log \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=stage-build /opt/applets/build /opt/download/
+COPY --from=stage-build /opt/download/ /opt/download/
 COPY http_server.conf /etc/nginx/conf.d/default.conf
