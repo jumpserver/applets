@@ -4,6 +4,7 @@ comment: A tool for working with MySQL, to execute SQL and design tables
 version: 0.1
 author: Eric
 type: general
+update_policy: none
 tags:
   - database
 protocols:
