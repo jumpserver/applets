@@ -120,15 +120,24 @@ class Asset(DictObj):
         return None
 
 
+class LabelValue(DictObj):
+    label: str
+    value: str
+
+
 class Account(DictObj):
     id: str
     name: str
     username: str
     secret: str
+    secret_type: str
 
 
 class Platform(DictObj):
-    charset: str
+    id: str
+    name: str
+    charset: LabelValue
+    type: LabelValue
 
 
 class Manifest(DictObj):
