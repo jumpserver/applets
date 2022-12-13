@@ -130,7 +130,7 @@ class Account(DictObj):
     name: str
     username: str
     secret: str
-    secret_type: str
+    secret_type: LabelValue
 
 
 class Platform(DictObj):
