@@ -176,11 +176,7 @@ class AppletApplication(BaseApplication):
             self.driver.get(self.app.asset.address)
             ok = self.app.execute(self.driver)
             if not ok:
-                unblock_input()
-                notify_err_message("执行存在错误，退出")
-                block_input()
-                self.close()
-                return
+                print("执行失败")
         self.driver.maximize_window()
 
     def wait(self):
