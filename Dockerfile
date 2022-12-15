@@ -38,6 +38,9 @@ RUN pip download --only-binary=:all: \
     --python-version 3.10.8 --abi cp310 -r requirements.txt -i${PIP_MIRROR} \
     && cp requirements.txt pip_packages
 
+# 安装 构建依赖
+RUN pip install pyyaml
+
 COPY . .
 
 RUN python build.py && ls -al build
