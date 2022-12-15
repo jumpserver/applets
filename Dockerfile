@@ -1,4 +1,4 @@
-FROM python:3.8-slim as stage-build
+FROM python:3.9-slim as stage-build
 ARG TARGETARCH
 ARG PIP_MIRROR=https://pypi.douban.com/simple
 ENV PIP_MIRROR=$PIP_MIRROR
@@ -39,7 +39,7 @@ RUN pip download --only-binary=:all: \
     && cp requirements.txt pip_packages
 
 # 安装 构建依赖
-RUN pip install pyyaml
+RUN pip install pyyaml -i${PIP_MIRROR}
 
 COPY . .
 
