@@ -1,4 +1,5 @@
 name: mysql_workbench8
+display_name: MySQL Workbench8
 version: 0.1
 exec_type: python
 type: general
