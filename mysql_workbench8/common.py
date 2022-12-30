@@ -119,11 +119,9 @@ class Asset(DictObj):
                 return item.port
         return None
 
-
 class LabelValue(DictObj):
     label: str
     value: str
-
 
 class Account(DictObj):
     id: str
@@ -134,7 +132,7 @@ class Account(DictObj):
 
 
 class Platform(DictObj):
-    id: str
+    charset: str
     name: str
     charset: LabelValue
     type: LabelValue

@@ -1,0 +1,8 @@
+name: mysql_workbench8
+version: 0.1
+exec_type: python
+type: general
+tags:
+  - database
+protocols:
+  - mysql
