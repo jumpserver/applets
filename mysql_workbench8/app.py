@@ -21,6 +21,7 @@ class AppletApplication(BaseApplication):
         self.port = self.asset.get_protocol_port(self.protocol)
         self.db = self.asset.specific.db_name
         self.pid = None
+        self.app = None
 
     def run(self):
         app = Application(backend='uia')
@@ -66,6 +67,7 @@ class AppletApplication(BaseApplication):
         ok_ele = app.top_window().child_window(title="Button Bar", auto_id="Button Bar", control_type="Pane") \
             .child_window(title="OK", control_type="Button")
         ButtonWrapper(ok_ele.element_info).click()
+        self.app = app
 
     def wait(self):
         wait_pid(self.pid)
