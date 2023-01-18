@@ -7,7 +7,7 @@ import os.path
 import yaml
 import json
 
-applets_index = {}
+applets_index = []
 
 
 @contextlib.contextmanager
@@ -35,8 +35,7 @@ def zip_applet(applet_path, dst_dir):
 
         app_config = read_applet_config(applet_path)
         if app_config.get("name"):
-            applet_name = app_config.get("name")
-            applets_index[applet_name] = app_config
+            applets_index.append(app_config)
         applet_name = os.path.basename(applet_path)
         zip_name = os.path.join(dst_dir, applet_name + '.zip')
 
