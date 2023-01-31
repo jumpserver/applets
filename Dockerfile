@@ -10,11 +10,23 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
     && rm -f /etc/cron.daily/apt-compat \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apt-get update \
-    && apt-get install -y --no-install-recommends wget \
+    && apt-get install -y --no-install-recommends wget zip \
     && echo "no" | dpkg-reconfigure dash \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/applets
+COPY requirements.txt requirements.txt
+
+RUN set -e \
+    && mkdir pip_packages build \
+    && pip download --only-binary=:all: \
+    -d pip_packages \
+    --platform win_amd64 \
+    --python-version 3.10.8 --abi cp310 -r requirements.txt -i${PIP_MIRROR} \
+    && cp requirements.txt pip_packages \
+    && zip -r pip_packages.zip pip_packages \
+    && mv pip_packages.zip build
+
 # 安装 构建依赖
 RUN pip install pyyaml -i${PIP_MIRROR}
 
