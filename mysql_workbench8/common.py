@@ -125,7 +125,7 @@ class Asset(DictObj):
     address: str
     protocols: list[Protocol]
     category: Category
-    specific: Specific
+    spec: Specific
 
     def get_protocol_port(self, protocol):
         for item in self.protocols:
