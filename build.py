@@ -53,15 +53,18 @@ def zip_applet(applet_path, dst_dir):
 
 
 ignore_dirs = ['dist', 'node_modules', 'build', 'venv', '.git', '.idea', '.vscode',
-               '__pycache__', 'demo', 'pip_packages']
+               '__pycache__', 'demo', 'pip_packages', ]
 
 
 def zip_all_applets(project_path):
     applets_dir = []
     for file in os.listdir(project_path):
         applet_path = os.path.join(project_path, file)
-        if os.path.isdir(applet_path) and file not in ignore_dirs:
-            applets_dir.append(applet_path)
+        if not os.path.isdir(applet_path):
+            continue
+        if file.startswith(".") or file in ignore_dirs:
+            continue
+        applets_dir.append(applet_path)
     dist_dir = os.path.join(project_path, 'build')
     for applet in applets_dir:
         zip_applet(applet, dist_dir)
