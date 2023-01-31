@@ -67,24 +67,6 @@ def zip_all_applets(project_path):
         zip_applet(applet, dist_dir)
 
 
-def zip_pip_packages(project_path):
-    pip_packages_path = os.path.join(project_path, 'pip_packages')
-    if not os.path.exists(pip_packages_path):
-        raise Exception('pip_packages not exist')
-    dst_dir = os.path.join(project_path, 'build')
-    with change_dir(project_path):
-        applet_name = "pip_packages"
-        zip_name = os.path.join(dst_dir, applet_name + '.zip')
-        filelist = []
-        for root, dirs, files in os.walk(applet_name):
-            for name in files:
-                filelist.append(os.path.join(root, name))
-        with zipfile.ZipFile(zip_name, "w", zipfile.ZIP_DEFLATED) as zf:
-            for tar in filelist:
-                arcname = tar[len(applet_name):]
-                zf.write(tar, arcname)
-
-
 def write_index_json(project_path):
     dst_dir = os.path.join(project_path, 'build')
     with change_dir(dst_dir):
@@ -95,7 +77,6 @@ def write_index_json(project_path):
 def run():
     root_path = os.path.dirname(os.path.abspath(__file__))
     zip_all_applets(root_path)
-    zip_pip_packages(root_path)
     write_index_json(root_path)
 
 
