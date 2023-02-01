@@ -19,7 +19,7 @@ class AppletApplication(BaseApplication):
         self.password = self.account.secret
         self.host = self.asset.address
         self.port = self.asset.get_protocol_port(self.protocol)
-        self.db = self.asset.spec.db_name
+        self.db = self.asset.spec_info.db_name
         self.pid = None
         self.app = None
 
