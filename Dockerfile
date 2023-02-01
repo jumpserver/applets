@@ -49,5 +49,5 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
     && rm -f /var/log/nginx/*.log \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=stage-build /opt/applets/build /opt/download/applets/
+COPY --from=stage-build /opt/applets/build /opt/applets/
 COPY http_server.conf /etc/nginx/conf.d/default.conf
