@@ -3,4 +3,3 @@ selenium==4.4.0
 pywin32==304
 PyYAML==6.0
 pynput==1.7.6
-PyAutoGUI==0.9.53
