@@ -45,12 +45,16 @@ jobs:
                                    --python-version 3.10.8 --abi cp310 -r requirements.txt
           cp -rf requirements.txt pip_packages
           zip -r pip_packages.zip pip_packages
+          mkdir -p build && mv pip_packages.zip build
+          pip install pyyaml
+          python build.py
+          ls -l build
       - name: Release Upload Assets
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
-            pip_packages.zip
+           ./build/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
