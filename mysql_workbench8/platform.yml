@@ -1,0 +1,23 @@
+name: MySQLWorkbench
+category: custom
+type: DB
+comment: 自定义 MySQLWorkbench
+protocols:
+  - name: mysqlworkben
+    port: 0
+    primary: true
+custom_fields:
+  - name: db_name
+    label: 数据库
+    default: mysql
+    type: str
+    help_text: 请填写数据库
+
+  - name: db_type
+    label: 类型
+    type: choice
+    choices:
+      - mysql
+      - mariadb
+      - postgre
+  
