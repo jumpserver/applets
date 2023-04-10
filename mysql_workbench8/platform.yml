@@ -1,17 +1,26 @@
+# 该文件是添加 applet 时，同步添加的 platform
+# 该 platform 必须是 custom 类别，支持自定义协议 和 自定义字段
+#
+# 平台名称: 需要唯一，所以开发者取名时要多注意 
 name: MySQLWorkbench
+# 类别: 必须是 custom
 category: custom
+# 类型: 可以自定义
 type: DB
+# 备注: 平台备注
 comment: 自定义 MySQLWorkbench
+# 支持的协议: 这个很关键，这里支持自定义协议
 protocols:
   - name: mysqlworkben
     port: 0
     primary: true
+# 自定义字段：设置这个后，添加资产时，需要填写，applet 开发时，会在 资产的 info 中体现
 custom_fields:
-  - name: db_name
-    label: 数据库
-    default: mysql
-    type: str
-    help_text: 请填写数据库
+  - name: db_name   # 字段名，存数据库时使用
+    label: 数据库    # 字段标签， 添加时，在页面上显示
+    default: mysql  # 默认值
+    type: str       # 类型，支持 str, int, bool, choice 类型，如果是 choice，需要有 choices 字段
+    help_text: 请填写数据库  # 帮助说明内容
 
   - name: db_type
     label: 类型
