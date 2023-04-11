@@ -19,7 +19,7 @@ custom_fields:
   - name: db_name   # 字段名，存数据库时使用
     label: 数据库    # 字段标签， 添加时，在页面上显示
     default: mysql  # 默认值
-    type: str       # 类型，支持 str, int, bool, choice 类型，如果是 choice，需要有 choices 字段
+    type: str       # 类型，支持 str, int, bool, choice, text, list 类型，如果是 choice，需要有 choices 字段
     help_text: 请填写数据库  # 帮助说明内容
 
   - name: db_type
