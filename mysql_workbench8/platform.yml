@@ -11,26 +11,50 @@ type: DB
 comment: 自定义 MySQLWorkbench
 # 支持的协议: 这个很关键，这里支持自定义协议
 protocols:
-  - name: mysqlworkben
+  - name: mysqlworkbench
     port: 0
     primary: true
 # 自定义字段：设置这个后，添加资产时，需要填写，applet 开发时，会在 资产的 info 中体现
 custom_fields:
   - name: db_name   # 字段名，存数据库时使用
-    label: 数据库    # 字段标签， 添加时，在页面上显示
+    label: "{{ 'DB Name' | trans }}"    # 字段标签， 添加时，在页面上显示
     default: mysql  # 默认值
     type: str       # 类型，支持 str, int, bool, choice, text, list 类型，如果是 choice，需要有 choices 字段
-    help_text: 请填写数据库  # 帮助说明内容
+    help_text: ”{{ 'Please select a database' | trans }}“   # 帮助说明内容
+  
+  - name: ip
+    label: IP
+    type: str
+    default: 127.0.0.1
 
-  - name: db_type
-    label: 类型
-    type: choice
-    choices:
-      - mysql
-      - mariadb
-      - postgre
-  
+  - name: port
+    label: "{{ 'Port' | trans }}"
+    type: int
+    default: 3306 
+
+  - name: username
+    label: "{{ 'Username' | trans }}"
+    type: str
+    default: root
+
   - name: password
-    label: 类型
-    type: list
+    label: "{{ 'Password' | trans }}"
+    type: str
   
+i18n:
+  DB Name:
+    zh: 数据库
+    ja: データベース
+  Please select a database:
+    zh: 请选择数据库
+    ja: データベースを選択してください
+  Port:
+    zh: 端口
+    ja: ポート
+  Username:
+    zh: 用户名
+    ja: ユーザー名
+  Password:
+    zh: 密码
+    ja: パスワード
+
