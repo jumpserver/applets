@@ -30,3 +30,7 @@ custom_fields:
       - mariadb
       - postgre
   
+  - name: password
+    label: 类型
+    type: list
+  
