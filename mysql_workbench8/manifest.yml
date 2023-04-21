@@ -9,7 +9,7 @@ update_policy: none
 tags:
   - database
 protocols:
-  - mysql
+  - mysqlworkbench
 
 i18n:
   MySQL Workbench:
