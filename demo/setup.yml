@@ -1,8 +1,0 @@
-type: msi # exe, zip, manual
-source: https://jms-pkg.oss-cn-beijing.aliyuncs.com/windows-pkgs/mysql-workbench-community-8.0.31-winx64.msi
-arguments:
-  - /qn
-  - /norestart
-destination: C:\Program Files\MySQL\MySQL Workbench 8.0 CE
-program: C:\Program Files\MySQL\MySQL Workbench 8.0 CE\MySQLWorkbench.exe
-md5: d628190252133c06dad399657666974a
