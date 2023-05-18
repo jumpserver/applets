@@ -109,7 +109,7 @@ base64_json_data 是 JSON 数据进行 base64 之后的字符串，包含资产�
 }
 ```
 
-base64_json_data 的具体获取可以[参考文档](https://wiki.fit2cloud.com/pages/viewpage.action?pageId=109510765)
+base64_json_data 的具体获取可以[参考文档](https://bbs.fit2cloud.com/t/topic/339)
 
 ### 自定义平台和协议 platform.yml
 可参考 [查看这个](https://github.com/jumpserver/applets/blob/master/mysql_workbench8/platform.yml)，这个文件不是必须的，需要配套平台或者自定义协议时需要
