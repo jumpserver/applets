@@ -1,6 +1,6 @@
 FROM python:3.9-slim as stage-build
 ARG TARGETARCH
-ARG PIP_MIRROR=https://pypi.douban.com/simple
+ARG PIP_MIRROR=https://mirrors.aliyun.com/pypi/simple/
 ENV PIP_MIRROR=$PIP_MIRROR
 
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
@@ -17,8 +17,10 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
 WORKDIR /opt/applets
 COPY requirements.txt requirements.txt
 
-RUN set -e \
+RUN --mount=type=cache,target=/root/.cache/pip \
+    set -ex \
     && mkdir pip_packages build \
+    && pip config set global.index-url ${PIP_MIRROR} \
     && pip download --only-binary=:all: \
     -d pip_packages \
     --platform win_amd64 \
@@ -28,13 +30,14 @@ RUN set -e \
     && mv pip_packages.zip build
 
 # 安装 构建依赖
-RUN pip install pyyaml -i${PIP_MIRROR}
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install pyyaml
 
 COPY . .
 
 RUN python build.py && ls -al build
 
-FROM nginx:1.22
+FROM nginx:1.24
 ARG TARGETARCH
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
 
