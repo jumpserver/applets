@@ -20,7 +20,7 @@ COPY requirements.txt requirements.txt
 RUN --mount=type=cache,target=/root/.cache/pip \
     set -ex \
     && mkdir pip_packages build \
-    && pip config set global.index-url ${PIP_MIRROR}
+    && pip config set global.index-url ${PIP_MIRROR} \
     && pip download --only-binary=:all: \
     -d pip_packages \
     --platform win_amd64 \
