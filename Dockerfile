@@ -1,4 +1,4 @@
-FROM python:3.9-slim as stage-build
+FROM python:3.9-slim-buster as stage-build
 ARG TARGETARCH
 ARG PIP_MIRROR=https://mirrors.aliyun.com/pypi/simple/
 ENV PIP_MIRROR=$PIP_MIRROR
