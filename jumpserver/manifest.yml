@@ -1,0 +1,17 @@
+name: jumpserver
+display_name: "JumpServer"
+version: 0.1
+comment: "{{ 'JumpServer is the world's first open-source Bastion Host and is licensed under the GPLv3. It is a 4A-compliant professional operation and maintenance security audit system.' | trans }}"
+author: wojiushixiaobai
+exec_type: python
+update_policy: always
+type: web
+tags:
+  - web
+protocols:
+  - jumpserver
+
+i18n:
+  JumpServer is the world's first open-source Bastion Host and is licensed under the GPLv3. It is a 4A-compliant professional operation and maintenance security audit system.:
+    en: JumpServer is the world's first open-source Bastion Host and is licensed under the GPLv3. It is a 4A-compliant professional operation and maintenance security audit system.
+    zh: JumpServer 是广受欢迎的开源堡垒机，是符合 4A 规范的专业运维安全审计系统。JumpServer 堡垒机帮助企业以更安全的方式管控和登录各种类型的资产。

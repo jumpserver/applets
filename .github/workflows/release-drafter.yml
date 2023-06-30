@@ -47,6 +47,7 @@ jobs:
           zip -r pip_packages.zip pip_packages
           mkdir -p build && mv pip_packages.zip build
           pip install pyyaml
+          bash get_source.sh
           python build.py
           ls -l build
       - name: Release Upload Assets

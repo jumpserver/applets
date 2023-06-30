@@ -35,6 +35,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY . .
 
+RUN bash get_source.sh
+
 RUN python build.py && ls -al build
 
 FROM nginx:1.24
