@@ -1,8 +1,6 @@
-FROM python:3.9-slim-buster as stage-build
+FROM jumpserver/python:3.9-slim-buster as stage-build
 ARG TARGETARCH
 ARG PIP_MIRROR=https://mirrors.aliyun.com/pypi/simple/
-ENV PIP_MIRROR=$PIP_MIRROR
-
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
