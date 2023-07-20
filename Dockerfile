@@ -1,8 +1,6 @@
-FROM python:3.9-slim as stage-build
+FROM jumpserver/python:3.9-slim-buster as stage-build
 ARG TARGETARCH
 ARG PIP_MIRROR=https://mirrors.aliyun.com/pypi/simple/
-ENV PIP_MIRROR=$PIP_MIRROR
-
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
@@ -24,7 +22,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     && pip download --only-binary=:all: \
     -d pip_packages \
     --platform win_amd64 \
-    --python-version 3.10.8 --abi cp310 -r requirements.txt -i${PIP_MIRROR} \
+    --python-version 3.10.11 --abi cp310 -r requirements.txt -i${PIP_MIRROR} \
     && cp requirements.txt pip_packages \
     && zip -r pip_packages.zip pip_packages \
     && mv pip_packages.zip build
@@ -34,6 +32,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     pip install pyyaml
 
 COPY . .
+
+RUN bash get_source.sh
 
 RUN python build.py && ls -al build
 

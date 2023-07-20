@@ -1,0 +1,19 @@
+name: JumpServer
+category: custom
+type: WebCloud
+comment: "JumpServer"
+protocols:
+  - name: jumpserver
+    port: 443
+    primary: true
+
+custom_fields:
+  - name: Label
+    label: "{{ 'Label' | trans }}"
+    type: str
+    default: jumpserver
+
+i18n:
+  Label:
+    zh: 标签
+    ja: タブ
