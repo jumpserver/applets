@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import contextlib
 import os
+import shutil
 import zipfile
 import os.path
 import yaml
@@ -52,8 +53,9 @@ def zip_applet(applet_path, dst_dir):
         print(f'zip  {applet_name} applet to {zip_name} success')
 
 
-ignore_dirs = ['dist', 'node_modules', 'build', 'venv', '.git', '.idea', '.vscode',
-               '__pycache__', 'demo', 'pip_packages', ]
+ignore_dirs = ['dist', 'node_modules', 'build', 'venv', '.git', '.github', '.idea', '.vscode',
+               '__pycache__', 'demo', 'pip_packages', 'utils', 'tests', 'log', 'base', 'tmp',
+               ]
 
 
 def zip_all_applets(project_path):
@@ -66,8 +68,11 @@ def zip_all_applets(project_path):
             continue
         applets_dir.append(applet_path)
     dist_dir = os.path.join(project_path, 'build')
+    base_dir = os.path.join(project_path, 'base')
     for applet in applets_dir:
+        shutil.copytree(base_dir, os.path.join(applet, 'base'), dirs_exist_ok=True)
         zip_applet(applet, dist_dir)
+        shutil.rmtree(os.path.join(applet, 'base'))
 
 
 def write_index_json(project_path):
