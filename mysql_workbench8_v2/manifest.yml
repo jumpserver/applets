@@ -1,0 +1,24 @@
+name: mysql_workbench8
+display_name: "{{ 'MySQL Workbench' | trans }}"
+comment: "{{ 'A tool for working with MySQL, to execute SQL and design tables' | trans }}"
+version: 0.1
+exec_type: python
+author: Eric
+type: general
+update_policy: none
+tags:
+  - database
+protocols:
+  - mysqlworkbench
+
+i18n:
+  MySQL Workbench:
+    en: MySQL Workbench
+    zh: MySQL Workbench
+    ja: MySQL Workbench
+
+  A tool for working with MySQL, to execute SQL and design tables:
+    en: A tool for working with MySQL, to execute SQL and design tables
+    zh: 用于与MySQL一起工作的工具，用于执行SQL和设计表
+    ja: MySQLでSQLを実行し、テーブルを設計するためのツール
+
