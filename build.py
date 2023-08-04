@@ -53,9 +53,10 @@ def zip_applet(applet_path, dst_dir):
         print(f'zip  {applet_name} applet to {zip_name} success')
 
 
-ignore_dirs = ['dist', 'node_modules', 'build', 'venv', '.git', '.github', '.idea', '.vscode',
-               '__pycache__', 'demo', 'pip_packages', 'utils', 'tests', 'log', 'base', 'tmp',
-               ]
+ignore_dirs = [
+    'dist', 'node_modules', 'build', 'venv', '.git', '.github', '.idea', '.vscode',
+    '__pycache__', 'demo', 'pip_packages', 'utils', 'tests', 'log', 'base', 'tmp',
+]
 
 
 def zip_all_applets(project_path):

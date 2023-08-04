@@ -1,7 +1,4 @@
-# import sys
-# import traceback
-
-__all__ = ['ApiInputException', 'AppletException', 'ApiOutputException']
+__all__ = ['BaseException', 'ApiInputException', 'AppletException', 'ApiOutputException']
 
 
 class BaseException(Exception):
@@ -9,7 +6,6 @@ class BaseException(Exception):
 
     def __init__(self, code, msg=None):
         if not code in self.code__msg:
-            # logger.error(sys._getframe().f_back.f_code.co_name)
             raise Exception(f'输入的异常代码code: {code} \
                             不在约定范围内: {self.__class__.__name__} \
                                 约定的code请参考: {self.code__msg}')
