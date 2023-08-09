@@ -16,7 +16,7 @@ if sys.platform == 'win32':
 from base.config import CONFIG
 from base.utils import Dict2Obj, check_pid_alive, block_input, unblock_input, \
     convert_base64_to_dict, logger
-from base.utils.exceptions import BaseException, ApiInputException, AppletException, ConfigException
+from base.utils.exceptions import ApiInputException, AppletException, ConfigException
 from base.utils.schema import Schema, SchemaError
 
 
@@ -25,6 +25,10 @@ class _Status(enum.Enum):
     RUNNING = 1
     PAUSED = 2
     ABNORMAL = 3
+
+
+# 调用入口接口数据格式校验策略
+kwargs_schema = {}
 
 
 class CatchException(type):
@@ -42,9 +46,8 @@ class CatchException(type):
             try:
                 return f(*args, **kwargs)
             except Exception as e:
-                logger.exception(f'{f.__qualname__}, {e}')
-                if isinstance(e, BaseException):
-                    return e.code, f.__qualname__, str(e)
+                print(f'{f.__qualname__}, {e}')
+                # logger.exception(f'{f.__qualname__}, {e}')
                 return 1, f.__qualname__, str(e)
                 raise Exception(f'{f.__name__}, {e}')
         return func
@@ -83,8 +86,6 @@ class BaseApplication(abc.ABC):
     pid: int = None
     _status: _Status = _Status.STOPPED
     config: Dict2Obj = Dict2Obj({})
-    # 调用入口接口数据格式校验策略
-    kwargs_schema = {}
     kwargs_validator = None
 
     def __init__(self, *args, kwargs_str=None, **kwargs):
@@ -94,11 +95,11 @@ class BaseApplication(abc.ABC):
         try:
             self.kwargs = convert_base64_to_dict(kwargs_str)
         except Exception as error:
-            logger.exception(error)
+            # logger.exception(error)
             raise ApiInputException(
                 101, f'{self.__class__.__name__} init kwargs invalid: {error}') from error
-        if self.kwargs_schema:
-            self.kwargs_validator = Schema(self.kwargs_schema, ignore_extra_keys=True)
+        if kwargs_schema:
+            self.kwargs_validator = Schema(kwargs_schema, ignore_extra_keys=True)
         self.config = _Config()
         self.app_image_name = self.config.setup.get('program').split('\\')[-1]
         self.app_name = self.config.setup.get('program').split('\\')[-1]
@@ -124,7 +125,7 @@ class BaseApplication(abc.ABC):
             try:
                 self.kwargs_validator.validate(self.kwargs)
             except SchemaError as error:
-                logger.exception(error)
+                # logger.exception(error)
                 raise ApiInputException(
                     101, f'{self.app_name} init kwargs invalid: {error}') from error
 
