@@ -10,12 +10,10 @@ import base64
 
 from base.config import CONFIG
 
-__all__ = [
-    'Dict2Obj', 'block_input', 'unblock_input', 'decode_content', 'notify_err_message', 'check_pid_alive',
-    'process_exists', 'get_manifest_data', 'read_app_manifest', 'convert_dict_to_base64',
-    'convert_base64_to_dict', 'DictObj', 'User', 'Specific', 'Category', 'Protocol', 'Asset', 'LabelValue',
-    'Account', 'Platform', 'Manifest',
-]
+__all__ = ['Dict2Obj', 'block_input', 'unblock_input', 'decode_content', 'notify_err_message', 'check_pid_alive',
+           'process_exists', 'get_manifest_data', 'read_app_manifest', 'convert_dict_to_base64',
+           'convert_base64_to_dict', 'DictObj', 'User', 'Specific', 'Category', 'Protocol', 'Asset', 'LabelValue',
+           'Account', 'Platform', 'Manifest']
 
 _blockInput = None
 _messageBox = None
