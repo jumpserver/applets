@@ -1,5 +1,0 @@
-type: msi # exe, zip, manual, msi
-source: jms:///download/applets/dbeaver-patch.msi
-arguments:
-  - /quiet
-destination:
