@@ -1,6 +1,6 @@
-FROM jumpserver/python:3.9-slim-buster as stage-build
+FROM python:3.11-slim-bullseye as stage-build
 ARG TARGETARCH
-ARG PIP_MIRROR=https://mirrors.aliyun.com/pypi/simple/
+ARG PIP_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked,id=applets \
@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     && zip -r pip_packages.zip pip_packages \
     && mv pip_packages.zip build
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 ARG TARGETARCH
 
 COPY --from=stage-build /opt/applets/build /opt/applets
