@@ -2,21 +2,48 @@
 
 ## 开发说明
 
-Applet 是一个包含 python 脚本的目录，其中除了platform.yml 以外，其他是必须的：
+Applet 是一个包含 python 脚本的目录：
 ```
-├── icon.png  
+├── app.py
+├── build.yml
+├── common.py
+├── icon.png
 ├── main.py
 ├── manifest.yml
 ├── platform.yml
+├── README.md
+├── patch.yml
 └── setup.yml
 ```
 
 各文件介绍：
-- main.py 是 applet 启动入口文件
+- app.py 是 applet 的主程序
+- build.yml 是 applet 依赖的外部部署文件，比如安装包 msi、exe
+- common.py 是 applet 的通用模块
 - icon.png 是 applet 的图标
+- main.py 是 applet 启动入口文件
 - manifest.yml 是 applet 的元数据，导入到 JumpServer 中会使用
+- platform.yml 是 applet 配套平台的设置，安装时自动创建该平台
+- README.md 是 applet 的说明文档
+- patch.yml 是 applet 的补丁文件，一些应用需要额外的初始化操作，比如激活、修改配置文件等可以先通过补丁文件 msi、exe 实现
 - setup.yml 是描述 applet 如何在 发布机上部署安装的文件
-- platform.yml 配套平台的设置，安装时自动创建该平台
+
+### 入口 app.py
+
+app.py 是 applet 的主程序，定义了 app 启用时的启动命令、参数、自动化操作等。比如需要处理账号密码的填写，页面按钮的点击等，可以在这里定义。
+
+### 依赖 build.yml
+
+build.yml 定义了 applet 依赖的外部部署文件，比如安装包 msi、exe。在构建应用时，会自动下载 build.yml 中定义的文件。
+
+```
+source_url: https://jms-pkg.oss-cn-beijing.aliyuncs.com/windows-pkgs/mysql-workbench-community-8.0.31-winx64.msi
+source_md5: d3641c423f00f0aa6f258ff116778e1b
+```
+
+### 通用模块 common.py
+
+common.py 是 applet 的通用模块，与 JumpServer 数据相关的抽象。
 
 ### 元数据 manifest.yml
 
@@ -45,10 +72,10 @@ protocols: (required）
 
 ### 安装条件 setup.yml
 
-setup.yml 定义了 applet 拉起程序的安装方式
+setup.yml 定义了 applet 程序的安装方式，如果定义了 build.yml，会自动下载 build.yml 中定义的文件然后重命名为 source 定义的名称。
 ```
 type: msi # exe, zip, manual
-source: https://jms-pkg.oss-cn-beijing.aliyuncs.com/windows-pkgs/mysql-workbench-community-8.0.31-winx64.msi
+source: mysql-workbench-community-8.0.31-winx64.msi
 arguments:
   - /qn
   - /norestart

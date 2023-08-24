@@ -1,5 +1,5 @@
 type: msi # exe, zip, manual
-source: https://jms-pkg.oss-cn-beijing.aliyuncs.com/windows-pkgs/mysql-workbench-community-8.0.31-winx64.msi
+source: mysql-workbench-community-8.0.31-winx64.msi
 arguments:
   - /qn
   - /norestart
