@@ -6,6 +6,7 @@ exec_type: python
 author: Eric
 type: general
 update_policy: none
+can_concurrent: false
 tags:
   - database
 protocols:
