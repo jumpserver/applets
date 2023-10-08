@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bullseye as stage-build
+FROM python:3.10-slim-bullseye as stage-build
 ARG TARGETARCH
 ARG PIP_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
