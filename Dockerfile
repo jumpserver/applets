@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye as stage-build
+FROM python:3.11-slim-bullseye as stage-build
 ARG TARGETARCH
 ARG PIP_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
 ARG APT_MIRROR=http://mirrors.ustc.edu.cn
@@ -22,7 +22,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     && pip download --only-binary=:all: \
     -d pip_packages \
     --platform win_amd64 \
-    --python-version 3.10.11 --abi cp310 -r requirements.txt -i${PIP_MIRROR} \
+    --python-version 3.11.6 --abi cp311 -r requirements.txt -i${PIP_MIRROR} \
     && cp requirements.txt pip_packages \
     && zip -r pip_packages.zip pip_packages \
     && mv pip_packages.zip build
