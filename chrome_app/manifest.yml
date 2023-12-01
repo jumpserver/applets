@@ -1,0 +1,23 @@
+name: chrome_app
+display_name: "{{ 'Chrome Browser' | trans }}"
+version: 1.0
+comment: "{{ 'Chrome Browser Open URL Page Address' | trans }}"
+author: JumpServer Team
+type: panda
+image_name: 2970298425/docker-chrome-app:latest
+image_protocol: vnc
+image_port: 5900
+tags:
+  - web
+protocols:
+  - http
+
+i18n:
+  Chrome Browser:
+    en: Chrome Browser
+    zh: Chrome 浏览器
+    ja: Chrome ブラウザ
+  Chrome Browser Open URL Page Address:
+    en: Chrome Browser Open URL Page Address
+    zh: Chrome 浏览器打开网页地址
+    ja: Chrome ブラウザでウェブページを開く
