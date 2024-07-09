@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bullseye as stage-build
+FROM python:3.11-slim-bullseye AS stage-build
 ARG TARGETARCH
 
 ARG DEPENDENCIES="            \
