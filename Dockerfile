@@ -7,7 +7,7 @@ ARG DEPENDENCIES="            \
         wget                  \
         zip"
 
-ARG APT_MIRROR=http://mirrors.ustc.edu.cn
+ARG APT_MIRROR=http://deb.debian.org
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     set -ex \
@@ -16,11 +16,12 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     && sed -i "s@http://.*.debian.org@${APT_MIRROR}@g" /etc/apt/sources.list \
     && apt-get update \
     && apt-get -y install --no-install-recommends ${DEPENDENCIES} \
+    && apt-get clean all \
     && echo "no" | dpkg-reconfigure dash
 
 WORKDIR /opt/applets
 
-ARG PIP_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
+ARG PIP_MIRROR=https://pypi.org/simple
 RUN --mount=type=cache,target=/root/.cache,sharing=locked,id=applets \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     set -ex \
