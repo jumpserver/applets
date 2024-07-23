@@ -65,5 +65,5 @@ jobs:
       - name: Push changes
         run: |
           cd docker-web
-          git remote set-url origin https://${{ secrets.PRIVATE_TOKEN }}@github.com/jumpserver/applets.git
+          git remote set-url origin https://${{ secrets.PRIVATE_TOKEN }}@github.com/jumpserver/docker-web.git
           git push origin ${{ env.current_branch }}
