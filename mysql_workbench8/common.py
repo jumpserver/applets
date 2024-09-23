@@ -114,6 +114,14 @@ class Protocol(DictObj):
     port: int
 
 
+class CustomInfo(DictObj):
+    db_name: str
+    ip: str
+    port: int
+    username: str
+    password: str
+
+
 class Asset(DictObj):
     id: str
     name: str
@@ -121,6 +129,7 @@ class Asset(DictObj):
     protocols: list[Protocol]
     category: Category
     spec_info: Specific
+    info: CustomInfo
 
     def get_protocol_port(self, protocol):
         for item in self.protocols:
