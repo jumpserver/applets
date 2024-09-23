@@ -1,7 +1,7 @@
 name: mysql_workbench8
 display_name: "{{ 'MySQL Workbench' | trans }}"
 comment: "{{ 'A tool for working with MySQL, to execute SQL and design tables' | trans }}"
-version: 0.1
+version: 0.1.2
 exec_type: python
 author: Eric
 type: general

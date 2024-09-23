@@ -15,11 +15,11 @@ class AppletApplication(BaseApplication):
         super().__init__(*args, **kwargs)
 
         self.path = _default_path
-        self.username = self.account.username
-        self.password = self.account.secret
+        self.username = self.asset.info.username
+        self.password = self.asset.info.password
         self.host = self.asset.address
-        self.port = self.asset.get_protocol_port(self.protocol)
-        self.db = self.asset.spec_info.db_name
+        self.port = self.asset.info.port
+        self.db = self.asset.info.db_name
         self.pid = None
         self.app = None
 
